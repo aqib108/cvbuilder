@@ -2250,7 +2250,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      form: {
+        title: [],
+        url: []
+      },
+      projects: [{
+        title: '',
+        url: ''
+      }]
+    };
+  },
+  methods: {
+    Addrow: function Addrow() {
+      this.projects.push({
+        title: '',
+        url: ''
+      });
+    },
+    removerow: function removerow(counter) {
+      this.projects.splice(counter, 1);
+    }
+  }
+});
 
 /***/ }),
 
@@ -42041,7 +42093,133 @@ var render = function() {
         "aria-labelledby": "profile-tab"
       }
     },
-    [_vm._v("mehmood")]
+    [
+      _c(
+        "form",
+        {
+          staticClass: "p-3",
+          attrs: { enctype: "multipart/form-data" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.create.apply(null, arguments)
+            }
+          }
+        },
+        [
+          _vm._l(_vm.projects, function(project, index) {
+            return _c("div", { key: index, staticClass: "form-group" }, [
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col-md-5" }, [
+                  _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                    _vm._v("Title")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.title,
+                        expression: "form.title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "name",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Project Title"
+                    },
+                    domProps: { value: _vm.form.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "title", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-5" }, [
+                  _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                    _vm._v("url")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.url,
+                        expression: "form.url"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "url",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Project Url"
+                    },
+                    domProps: { value: _vm.form.url },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "url", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-2" }, [
+                  _vm.projects.length > 1
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-xs btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.removerow(index)
+                            }
+                          }
+                        },
+                        [_vm._v("Remove")]
+                      )
+                    : _vm._e()
+                ])
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-xs btn-success",
+              staticStyle: { float: "right" },
+              on: {
+                click: function($event) {
+                  return _vm.Addrow()
+                }
+              }
+            },
+            [_vm._v("Add")]
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit")]
+          )
+        ],
+        2
+      )
+    ]
   )
 }
 var staticRenderFns = []
