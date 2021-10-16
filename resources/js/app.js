@@ -10,7 +10,9 @@ window.Notification = Notification;
 //for sweet alert
 import Swal from 'sweetalert2'
 window.Swal = Swal;
-
+///vue js modal
+import VModal from "vue-js-modal";
+window.VModal = VModal;
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
