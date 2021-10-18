@@ -59,7 +59,7 @@
           <div class="col-md-6">
           
           <label for="exampleInputEmail1">Job Description</label>
-         <textarea class="form-control" v-model="form.description"></textarea>
+         <textarea class="form-control" v-model="form.descrption"></textarea>
           </div>
           <div class="col-md-6">
           
@@ -127,7 +127,7 @@
               return {
                   form:{
                       organization_name:null,
-                      description:null,
+                      descrption:null,
                       title:null,
                       start_date:null,
                       end_date:null,

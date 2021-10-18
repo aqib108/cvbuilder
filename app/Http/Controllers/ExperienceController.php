@@ -36,7 +36,7 @@ class ExperienceController extends Controller
         }
       $this->model->title = $title;
       $this->model->user_id = $user_id;
-      $this->model->descrption = $description;
+      $this->model->descrption = $descrption;
       $this->model->start_date = $start_date;
       $this->model->end_date = $end_date;
       $this->model->organization_name = $organization_name;		

@@ -2385,7 +2385,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         organization_name: null,
-        description: null,
+        descrption: null,
         title: null,
         start_date: null,
         end_date: null,
@@ -54110,18 +54110,18 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.description,
-                      expression: "form.description"
+                      value: _vm.form.descrption,
+                      expression: "form.descrption"
                     }
                   ],
                   staticClass: "form-control",
-                  domProps: { value: _vm.form.description },
+                  domProps: { value: _vm.form.descrption },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.form, "description", $event.target.value)
+                      _vm.$set(_vm.form, "descrption", $event.target.value)
                     }
                   }
                 })
