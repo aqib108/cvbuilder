@@ -1,7 +1,28 @@
 <template>
   <div class="tab-pane fade" id="Preview" role="tabpanel" aria-labelledby="contact-tab">
-<button @click="refresh()">Refresh</button>
-<div id="doc2" class="yui-t7">
+<button  class="btn btn-outline-info mt-5" @click="refresh()">Refresh</button>
+<button  class="btn btn-outline-success mt-5" @click="generateReport()">Generate Pdf</button>
+
+<vue-html2pdf
+        :show-layout="true"
+        :float-layout="false"
+        :enable-download="true"
+        :preview-modal="false"
+        :paginate-elements-by-height="3000"
+        filename="cv"
+        :pdf-quality="1"
+        :manual-pagination="false"
+        pdf-format="a4"
+        pdf-orientation="landscape"
+        pdf-content-width="800px"
+
+        @progress="onProgress($event)"
+        @hasStartedGeneration="hasStartedGeneration()"
+        @hasGenerated="hasGenerated($event)"
+        ref="html2Pdf"
+    >
+        <section slot="pdf-content">
+            <div id="doc2" class="yui-t7">
 	<div id="inner">
 	
 		<div id="hd">
@@ -46,7 +67,7 @@
 
 					<div class="yui-gf">
 	
-						<div class="yui-u first">
+						<div class="yui-u">
 							<h2>Experience</h2>
 						</div><!--// .yui-u -->
 
@@ -64,12 +85,12 @@
 
 
 					<div class="yui-gf last">
-						<div class="yui-u first">
+						<div class="yui-u">
 							<h2>Education</h2>
 						</div>
-						<div class="yui-u">
-							<h2>Indiana University - Bloomington, Indiana</h2>
-							<h3>Dual Major, Economics and English &mdash; <strong>4.0 GPA</strong> </h3>
+						<div v-for="edu in educations" :key="edu.id" class="yui-u">
+							<h2>{{ edu.school_name || 'School name' }}</h2>
+							<h3>{{ edu.degree || 'Degree' }}, {{ edu.title || 'Mcs' }} &mdash; <strong>{{ edu.grade || 'grade' }}</strong> </h3>
 						</div>
 					</div><!--// .yui-gf -->
 
@@ -79,19 +100,23 @@
 		</div><!--// bd -->
 
 		<div id="ft">
-			<p>Jonathan Doe &mdash; <a href="mailto:name@yourdomain.com">name@yourdomain.com</a> &mdash; (313) - 867-5309</p>
+			<p>{{ profile.name }} &mdash; <a href="#">{{ profile.email || 'email@gmail.com' }}</a> &mdash; {{ profile.phone || '03067728835' }}</p>
 		</div><!--// footer -->
 
 	</div><!-- // inner -->
 
 
 </div><!--// doc -->
+        </section>
+    </vue-html2pdf>
+
 
 
   </div>
 </template>
 
 <script>
+import VueHtml2pdf from 'vue-html2pdf'
     export default {
      data()
      {
@@ -110,6 +135,7 @@
     });
         },
         methods:{
+          
           getCv()
           {
   axios.get('/preview')
@@ -126,8 +152,14 @@
           refresh()
           {
               Reload.$emit('LoadCv');
-          }
+          },
+          generateReport () {
+            this.$refs.html2Pdf.generatePdf()
         }
+        },
+        components: {
+        VueHtml2pdf
+    }
     }
 </script>
 <style scoped>
