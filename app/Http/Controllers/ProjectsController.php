@@ -71,4 +71,28 @@ class ProjectsController extends Controller
        }
        
     }
+    function update(Request $request)
+    {
+        $UserID = Auth::user()->id;
+        extract($request->all());
+        if(!empty($id))
+        {
+            $this->model->exists = true;
+            $this->model->id = $id;
+        }
+        $this->model->title = $title;
+        $this->model->url = $url;
+        if($this->model->save())
+        {
+            $projects= $this->fetchproject($UserID);
+            $message = 'Successfully Add Your Projects';
+            return $this->success($message,$projects);
+        }
+        else
+        {
+            $message = 'Error in Save Your Projects';
+            return $this->error($message);
+        }
+
+    }
 }

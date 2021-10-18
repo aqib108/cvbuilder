@@ -58,16 +58,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form @submit.prevent="update">
         <input type="text" v-model="Editdata.title" class="form-control" />
         <input type="text" v-model="Editdata.url" class="form-control" />
         <input type="hidden" v-model="Editdata.id" class="form-control" />
+     <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    
+   
     </div>
   </div>
 </div>
@@ -77,6 +79,7 @@
 </template>
 
 <script>
+var $ = require('jquery')
     export default {
         created()
         {
@@ -144,6 +147,30 @@
                    
         })
       },
+      update()
+      {
+         
+        axios.post('/update_projects',this.Editdata)
+        .then(resp=>{
+          if(resp.data.status==200)
+          {
+            $('#EditModal').modal('hide');
+          }
+          this.aprojects = resp.data.userdata;
+                 Toast.fire({
+                 icon: resp.data.icon,
+                 title: resp.data.message
+                   });
+         
+               }).catch(error=>{
+                 this.errors = error.response.data.errors;
+                 Toast.fire({
+                 icon: 'warning',
+                 title: 'Something Went to Wrong'
+                   });
+                   
+        })
+      },
       deleteproject(id)
       {
           
@@ -165,7 +192,7 @@
       {
            this.Editdata = project;
            
-    VModal.show("EditModal");
+    $("#EditModal").modal('show');
       }
           }     
     }

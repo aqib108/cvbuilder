@@ -2819,6 +2819,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     var _this = this;
@@ -2874,11 +2878,32 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    deleteproject: function deleteproject(id) {
+    update: function update() {
       var _this3 = this;
 
-      axios.get('/deleteproject/' + id).then(function (resp) {
+      axios.post('/update_projects', this.Editdata).then(function (resp) {
+        if (resp.data.status == 200) {
+          $('#EditModal').modal('hide');
+        }
+
         _this3.aprojects = resp.data.userdata;
+        Toast.fire({
+          icon: resp.data.icon,
+          title: resp.data.message
+        });
+      })["catch"](function (error) {
+        _this3.errors = error.response.data.errors;
+        Toast.fire({
+          icon: 'warning',
+          title: 'Something Went to Wrong'
+        });
+      });
+    },
+    deleteproject: function deleteproject(id) {
+      var _this4 = this;
+
+      axios.get('/deleteproject/' + id).then(function (resp) {
+        _this4.aprojects = resp.data.userdata;
         Toast.fire({
           icon: resp.data.icon,
           title: resp.data.message
@@ -2887,7 +2912,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     editproject: function editproject(project) {
       this.Editdata = project;
-      VModal.show("EditModal");
+      $("#EditModal").modal('show');
     }
   }
 });
@@ -55127,76 +55152,87 @@ var render = function() {
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _c("form", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.Editdata.title,
-                          expression: "Editdata.title"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.Editdata.title },
+                  _c(
+                    "form",
+                    {
                       on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.Editdata, "title", $event.target.value)
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.update.apply(null, arguments)
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.Editdata.url,
-                          expression: "Editdata.url"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.Editdata.url },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.Editdata.title,
+                            expression: "Editdata.title"
                           }
-                          _vm.$set(_vm.Editdata, "url", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.Editdata.id,
-                          expression: "Editdata.id"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "hidden" },
-                      domProps: { value: _vm.Editdata.id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.Editdata.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.Editdata, "title", $event.target.value)
                           }
-                          _vm.$set(_vm.Editdata, "id", $event.target.value)
                         }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.Editdata.url,
+                            expression: "Editdata.url"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.Editdata.url },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.Editdata, "url", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.Editdata.id,
+                            expression: "Editdata.id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "hidden" },
+                        domProps: { value: _vm.Editdata.id },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.Editdata, "id", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
+                ])
               ])
             ]
           )
@@ -55261,7 +55297,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Save changes")]
       )
     ])

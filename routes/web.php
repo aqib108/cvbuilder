@@ -32,6 +32,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/ceate_projects', [ProjectsController::class, 'save'])->name('ceate_projects');
 Route::get('/getprojects', [ProjectsController::class, 'show'])->name('getprojects');
 Route::get('/deleteproject/{id}', [ProjectsController::class, 'delete'])->name('deleteproject');
+Route::post('/update_projects', [ProjectsController::class, 'update'])->name('update_projects');
 //education
 Route::post('/ceate_education', [EducationsController::class, 'save'])->name('ceate_education');
 Route::get('/geteducations', [EducationsController::class, 'show'])->name('geteducations');
