@@ -72,9 +72,52 @@
   </div>
 
  <!--end of feild-->
+   <!--new feild-->
+<div  class="form-group">
+      <div  class="form-row">
+      
+          <div class="col-md-12">
+          
+          <label for="exampleInputEmail1">School|Insitute|University|College Name</label>
+         <input type="text" class="form-control" id="url" aria-describedby="emailHelp" placeholder="Grade" v-model="form.school_name">
+    
+          </div>
+          
+  </div>
+   </div>
+
+ <!--end of feild-->
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+      <table v-if="educations.length>0" class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">degree</th>
+      <th scope="col">grade</th>
+      <th scope="col">start date</th>
+      <th scope="col">end date</th>
+      <th scope="col">Present</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="education in educations" :key="education.id">
+      <td>{{education.title}}</td>
+      <td>{{education.degree}}</td>
+       <td>{{education.grade}}</td>
+        <td>{{education.start_date}}</td>
+         <td>{{education.end_date}}</td>
+          <td>{{education.present || 'compeleted'}}</td>
+      <td>
+      <button @click="deleteproject(education.id)" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button>
+      <button @click="editproject(education)" class="btn btn-sm btn-outline-success"><i class="fa fa-edit"></i></button>
+      </td>
+    </tr>
    
+    
+  </tbody>
+</table>
    </div>
 </template>
 
@@ -83,9 +126,9 @@
     export default {
         created()
         {
-         axios.get('/getprojects')
+         axios.get('/geteducations')
         .then(resp=>{
-            this.aprojects = resp.data;
+            this.educations = resp.data;
                     })
         .catch(error=>{
                        
@@ -101,6 +144,8 @@
                       end_date:null,
                       grade:null,
                       present:null,
+                      id:null,
+                      school_name:null
                   },
                  errors:{},
                     
@@ -116,7 +161,7 @@
          
         axios.post('/ceate_education',this.form)
         .then(resp=>{
-          this.education = resp.data.userdata;
+          this.educations = resp.data.userdata;
                  Toast.fire({
                  icon: resp.data.icon,
                  title: resp.data.message
@@ -135,9 +180,9 @@
       {
           
          
-           axios.get('/deleteproject/'+id)
+           axios.get('/deleteeducation/'+id)
         .then(resp=>{
-            this.aprojects = resp.data.userdata;
+            this.educations = resp.data.userdata;
               Toast.fire({
                  icon: resp.data.icon,
                  title: resp.data.message
@@ -148,11 +193,11 @@
                  })
 
       },
-      editproject(project)
+      editproject(education)
       {
-           this.Editdata = project;
+           this.form = education;
            
-    VModal.show("EditModal");
+//    VModal.show("EditModal");
       }
           }     
     }

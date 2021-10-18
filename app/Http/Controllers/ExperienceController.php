@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Educations;
 use DB;
-class EducationsController extends Controller
+
+class ExperienceController extends Controller
 {
-    public function __construct(Educations $model)
+    public function __construct(Experience $model)
     {
         $this->middleware('auth');
         $this->model = $model;
@@ -16,17 +16,16 @@ class EducationsController extends Controller
     function show()
     {
         $UserID = Auth::user()->id;
-        $userprojects = $this->fetcheducation($UserID);
+        $userprojects = $this->fetchexperience($UserID);
         return response()->json($userprojects);
     }
     function save(Request $request)
     {
         $user_id = Auth::user()->id;
         $validation = $request->validate([
-            'degree'=>'required',
             'title'=>'required',
-            'start_date'=>'required',
-            'school_name'=>'required'  
+            'organization_name'=>'required',
+            'start_date'=>'required',  
          ]);
 
          extract($request->all());
@@ -37,25 +36,24 @@ class EducationsController extends Controller
         }
       $this->model->title = $title;
       $this->model->user_id = $user_id;
-      $this->model->degree = $degree;
+      $this->model->descrption = $description;
       $this->model->start_date = $start_date;
       $this->model->end_date = $end_date;
-      $this->model->grade = $grade;
+      $this->model->organization_name = $organization_name;		
       $this->model->present = $present;
-      $this->model->school_name=$school_name;
       
       $result =$this->model->save();
     ///  $userdata = $this->model->find($this->model->id)->get()->first();
       if($this->model->save())
       {
-        $education = $this->fetcheducation($user_id);
+        $experience = $this->fetchexperience($user_id);
           if(!empty($id))
           {
-            return  $this->success('successfully Modify your Education',$education);
+            return  $this->success('successfully Modify your Experience',$experience);
           }
           else
           {
-            return  $this->success('successfully saved your Education',$education );
+            return  $this->success('successfully saved your Experience',$experience);
           }
         
           
@@ -63,15 +61,15 @@ class EducationsController extends Controller
       }
       else
       {
-        $education = $this->fetcheducation($user_id);
-     return   $this->error('Error in saved Your Education',$education);
+        $experience = $this->fetchexperience($user_id);
+     return   $this->error('Error in saved Your experience',$experience);
         
       }
 
    
         
     }
-    function fetcheducation($user_id)
+    function fetchexperience($user_id)
     {
         
         return $this->model->where('user_id',$user_id)->get();
@@ -83,8 +81,8 @@ class EducationsController extends Controller
      $education =  $this->model->find($id);
      if($education->delete())
      {
-      $education= $this->fetcheducation($UserID);
-      $message = 'Successfully Remove Education From Education List';
+      $education= $this->fetchexperience($UserID);
+      $message = 'Successfully Remove Experience From Experience List';
       return $this->success($message,$education);
      }
      else
@@ -94,5 +92,4 @@ class EducationsController extends Controller
      }
      
   }
-  
 }
