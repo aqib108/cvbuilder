@@ -59,7 +59,7 @@ jobs:
 
         script: |
 
-          cd /var/www/html
+          cd /public_html/cvbuilder/
 
           git checkout -f 
 
