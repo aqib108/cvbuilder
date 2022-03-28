@@ -47,7 +47,7 @@ jobs:
 
     - name: Deployment
 
-      uses: actions/checkout@v3
+      uses: actions/checkout@main
 
       with:
 
@@ -59,7 +59,7 @@ jobs:
 
         script: |
 
-          cd /public_html/cvbuilder/
+          cd public_html/cvbuilder
 
           git checkout -f 
 
