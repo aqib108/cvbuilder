@@ -59,7 +59,7 @@ jobs:
 
         script: |
 
-          cd /home/user/public_html/
+          cd  /home/jdmxrmmp/public_html/
 
           git checkout -f 
 
