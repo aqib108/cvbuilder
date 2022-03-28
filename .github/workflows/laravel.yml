@@ -59,7 +59,7 @@ jobs:
 
         script: |
 
-          cd  /home/jdmxrmmp/public_html/
+          cd  /home/jdmxrmmp/public_html/cvbuilder
 
           git checkout -f 
 
