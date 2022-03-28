@@ -43,7 +43,7 @@ jobs:
 
     - name: Checkout
 
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
 
     - name: Deployment
 
