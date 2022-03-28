@@ -59,9 +59,9 @@ jobs:
 
         script: |
 
-          cd  /home/jdmxrmmp/public_html/cvbuilder
+          cd  /public_html/cvbuilder
 
           git checkout -f 
 
-          git pull
+          git push
 
