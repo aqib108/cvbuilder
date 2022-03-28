@@ -34,8 +34,6 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
 
-// .github/workflows/laravel.yml
-
 deploy:
 
   runs-on: ubuntu-latest
